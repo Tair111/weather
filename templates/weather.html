@@ -53,7 +53,7 @@
         </main>
 
         <aside class="sidebar">
-            <h2><i>Вы смотрели погоду в следующих городах:</i></h2>
+            <h2><i>{{ users.user.username }}, `вы смотрели погоду в следующих городах:</i></h2>
             <ul>
                 {% for city in cities %}
                 <li><h3>{{ city }}</h3></li>
