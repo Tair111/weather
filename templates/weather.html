@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Погода</title>
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!-- Подключение ваших стилей CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Погода</h1>
+        </header>
+
+        <main>
+            <section class="weather-section">
+                <form method="post">
+                    <label for="city">Введите название города</label><br>
+                    <input type="text" id="city" name="city"><br><br>
+                    <input type="submit" value="Узнать погоду">
+                </form>
+            </section>
+
+            <section>
+                <h1>{{ tempriche }}</h1>
+            </section>
+
+            <section class="autocomplete-section">
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+                <script>
+                    $(document).ready(function() {
+                        $("#city").autocomplete({
+                            source: function(request, response) {
+                                $.ajax({
+                                    url: "/autocomplete",
+                                    dataType: "json",
+                                    data: {
+                                        term: request.term
+                                    },
+                                    success: function(data) {
+                                        response(data);
+                                    }
+                                });
+                            },
+                            minLength: 2
+                        });
+                    });
+                </script>
+            </section>
+        </main>
+
+        <aside class="sidebar">
+            <h2><i>Вы смотрели погоду в следующих городах:</i></h2>
+            <ul>
+                {% for city in cities %}
+                <li><h3>{{ city }}</h3></li>
+                {% endfor %}
+            </ul>
+        </aside>
+
+        <footer>
+            <h3>Cпасибо, что воспользовались нашим сервисом</h3>
+        </footer>
+    </div>
+</body>
+</html>
