@@ -29,3 +29,9 @@ pip install Flask Flask-WTF requests
 python app.py
 
 5. Откройте веб-браузер и перейдите по адресу http://localhost:5000/
+
+6. Поместил проект в докер контейнер
+- сборкиа Docker образа осуществляется командой 
+  docker build -t weatherapp .
+- запуск Docker контейнера осуществляется командой
+  docker run -p 5000:5000 weatherapp
